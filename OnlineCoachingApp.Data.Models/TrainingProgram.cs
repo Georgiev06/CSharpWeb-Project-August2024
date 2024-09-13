@@ -26,11 +26,9 @@ namespace OnlineCoachingApp.Data.Models
         public string ImageUrl { get; set; } = null!;
 
         [Required]
-        [Range(DurationInWeeksMinLength, DurationInWeeksMaxLength)]
         public int DurationInWeeks { get; set; }
 
         [Required]
-        [Range(PriceMinValue, PriceMaxValue)]
         public decimal Price { get; set; }
 
         public int CategoryId { get; set; }

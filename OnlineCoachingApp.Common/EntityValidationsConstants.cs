@@ -17,12 +17,13 @@ namespace OnlineCoachingApp.Common
             public const int DescriptionMinLength = 10;
 
             public const int ImageUrlMaxLength = 2048;
+            public const int ImageUrlMinLength = 4;
 
-            public const int PriceMaxValue = 1000;
-            public const int PriceMinValue = 0;
+            public const string PriceMaxValue = "1000";
+            public const string PriceMinValue = "0";
 
-            public const int DurationInWeeksMaxLength = 52;
-            public const int DurationInWeeksMinLength = 1;
+            public const string DurationInWeeksMaxLength = "52";
+            public const string DurationInWeeksMinLength = "1";
         }
 
         public static class Category

@@ -1,5 +1,4 @@
-﻿using OnlineCoachingApp.Web.ViewModels.Category;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace OnlineCoachingApp.Services.Data.Interfaces
 {
-    public interface ICategoryService
+    public interface ICoachService
     {
-        Task<IEnumerable<CategoryViewModel>> All();
+        Task<bool> GetCoachByUserId(string userId);
     }
 }

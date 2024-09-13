@@ -38,7 +38,7 @@
         grid-auto-columns: minmax(240px, 1fr);
         gap: 16px;
         overflow-x: auto;
-        scroll-snap-type: x mandatory;
+        /*scroll-snap-type: x mandatory;*/
         scroll-behavior: smooth;
         scrollbar-width: none;
     }

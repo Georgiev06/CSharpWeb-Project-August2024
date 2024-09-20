@@ -31,18 +31,14 @@ namespace OnlineCoachingApp.Data.Models
         [Required]
         public decimal Price { get; set; }
 
-        public int CategoryId { get; set; }
-
         public DateTime CreatedOn { get; set; }
+
+        public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; } = null!;
 
-        public Guid CoachId { get; set; }
+        public Guid? UserId { get; set; }
 
-        public virtual Coach Coach { get; set; } = null!;
-
-        public Guid UserId { get; set; }
-
-        public virtual User User { get; set; } = null!;
+        public virtual User? User { get; set; }
     }
 }

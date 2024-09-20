@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OnlineCoachingApp.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitializeDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -168,28 +168,6 @@ namespace OnlineCoachingApp.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Coaches",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Bio = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Coaches", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Coaches_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TrainingPrograms",
                 columns: table => new
                 {
@@ -199,10 +177,9 @@ namespace OnlineCoachingApp.Data.Migrations
                     ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     DurationInWeeks = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Level = table.Column<int>(type: "int", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 9, 15, 9, 54, 27, 737, DateTimeKind.Utc).AddTicks(3969)),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    CoachId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -211,18 +188,11 @@ namespace OnlineCoachingApp.Data.Migrations
                         name: "FK_TrainingPrograms_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TrainingPrograms_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TrainingPrograms_Coaches_CoachId",
-                        column: x => x.CoachId,
-                        principalTable: "Coaches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -267,19 +237,9 @@ namespace OnlineCoachingApp.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Coaches_UserId",
-                table: "Coaches",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TrainingPrograms_CategoryId",
                 table: "TrainingPrograms",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TrainingPrograms_CoachId",
-                table: "TrainingPrograms",
-                column: "CoachId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TrainingPrograms_UserId",
@@ -311,13 +271,10 @@ namespace OnlineCoachingApp.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Coaches");
-
-            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

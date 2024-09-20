@@ -12,18 +12,18 @@ namespace OnlineCoachingApp.Web.Controllers
     {
         private readonly ICategoryService _categoryService;
 
-        private readonly ICoachService _coachService;
+        private readonly ITrainingProgramService _trainingProgramService;
 
-        public TrainingProgramController(ICategoryService categoryService, ICoachService coachService)
+        public TrainingProgramController(ICategoryService categoryService, ITrainingProgramService trainingProgramService)
         {
             this._categoryService = categoryService;
-            this._coachService = coachService;
+            this._trainingProgramService = trainingProgramService;
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
-            return View();
+            return this.View();
         }
 
         [HttpGet]
@@ -33,10 +33,43 @@ namespace OnlineCoachingApp.Web.Controllers
                 
             TrainingProgramViewModel trainingProgramViewModel = new TrainingProgramViewModel()
             {
-                Categories = await this._categoryService.All()
+                Categories = await this._categoryService.GetAllCategories()
             };
 
-            return View(trainingProgramViewModel);
+            return this.View(trainingProgramViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(TrainingProgramViewModel model)
+        {
+            bool categoryExists = await this._categoryService.GetCategoryById(model.CategoryId);
+
+            if (!categoryExists) 
+            {
+                this.ModelState.AddModelError(nameof(model.CategoryId), "Selected category does not exists!");
+            }
+
+            if (!this.ModelState.IsValid) 
+            { 
+                model.Categories = await this._categoryService.GetAllCategories();
+
+                return this.View(model);
+            }
+
+            try
+            {
+                await this._trainingProgramService.Add(model);
+            }
+            catch (Exception _)
+            {
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add your new Training program! Please try again later!");
+                model.Categories = await this._categoryService.GetAllCategories();
+
+                return this.View(model);
+            }
+
+            return this.RedirectToAction("Index", "Home");
+
         }
     }
 }

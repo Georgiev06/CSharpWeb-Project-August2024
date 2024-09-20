@@ -19,7 +19,7 @@ namespace OnlineCoachingApp.Services.Data
             this._data = data;
         }
 
-        public async Task<IEnumerable<CategoryViewModel>> All()
+        public async Task<IEnumerable<CategoryViewModel>> GetAllCategories()
         {
             IEnumerable<CategoryViewModel> categories = await this._data.Categories
                 .AsNoTracking()
@@ -32,6 +32,13 @@ namespace OnlineCoachingApp.Services.Data
 
 
             return categories;
+        }
+
+        public async Task<bool> GetCategoryById(int id)
+        {
+            bool result = await this._data.Categories.AnyAsync(c => c.Id == id);
+
+            return result;
         }
     }
 }

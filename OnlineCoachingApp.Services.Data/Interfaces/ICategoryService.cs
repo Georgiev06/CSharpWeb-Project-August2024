@@ -9,6 +9,8 @@ namespace OnlineCoachingApp.Services.Data.Interfaces
 {
     public interface ICategoryService
     {
-        Task<IEnumerable<CategoryViewModel>> All();
+        Task<IEnumerable<CategoryViewModel>> GetAllCategories();
+        Task<bool> GetCategoryById(int id);
+
     }
 }

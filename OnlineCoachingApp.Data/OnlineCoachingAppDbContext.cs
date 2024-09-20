@@ -18,8 +18,6 @@ namespace OnlineCoachingApp.Web.Data
 
         public DbSet<TrainingProgram> TrainingPrograms { get; set; } = null!;
 
-        public DbSet<Coach> Coaches { get; set; }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             Assembly configAssembly = Assembly.GetAssembly(typeof(OnlineCoachingAppDbContext)) ??

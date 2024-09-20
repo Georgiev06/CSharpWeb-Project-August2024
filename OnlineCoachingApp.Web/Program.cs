@@ -4,6 +4,7 @@ using OnlineCoachingApp.Services.Data;
 using OnlineCoachingApp.Services.Data.Interfaces;
 using OnlineCoachingApp.Web.Data;
 using OnlineCoachingApp.Web.Infrastructure.Extensions;
+using OnlineCoachingApp.Web.Infrastructure.ModelBinders;
 
 namespace OnlineCoachingApp.Web
 {
@@ -31,7 +32,11 @@ namespace OnlineCoachingApp.Web
 
             builder.Services.AddApplicationServices(typeof(ITrainingProgramService));
 
-            builder.Services.AddControllersWithViews();
+            builder.Services
+                .AddControllersWithViews()
+                .AddMvcOptions(options => {
+                    options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                });
 
             WebApplication app = builder.Build();
 

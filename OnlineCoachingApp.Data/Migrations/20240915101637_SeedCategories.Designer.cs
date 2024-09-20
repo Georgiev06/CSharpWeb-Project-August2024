@@ -12,8 +12,8 @@ using OnlineCoachingApp.Web.Data;
 namespace OnlineCoachingApp.Data.Migrations
 {
     [DbContext(typeof(OnlineCoachingAppDbContext))]
-    [Migration("20240902114331_SeedDatabase")]
-    partial class SeedDatabase
+    [Migration("20240915101637_SeedCategories")]
+    partial class SeedCategories
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -194,41 +194,6 @@ namespace OnlineCoachingApp.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("OnlineCoachingApp.Data.Models.Coach", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Bio")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Coaches");
-                });
-
             modelBuilder.Entity("OnlineCoachingApp.Data.Models.TrainingProgram", b =>
                 {
                     b.Property<Guid>("Id")
@@ -238,13 +203,10 @@ namespace OnlineCoachingApp.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("CoachId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 9, 2, 11, 43, 31, 447, DateTimeKind.Utc).AddTicks(3287));
+                        .HasDefaultValue(new DateTime(2024, 9, 15, 10, 16, 37, 204, DateTimeKind.Utc).AddTicks(3067));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -267,46 +229,16 @@ namespace OnlineCoachingApp.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("CoachId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("TrainingPrograms");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("f7ada361-e78f-405e-9e53-7e0188ea3511"),
-                            CategoryId = 4,
-                            CoachId = new Guid("d857d2eb-3aa9-42b8-8e29-0d939d36d12c"),
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "A comprehensive strength training program designed to build muscle and improve overall fitness. Includes daily workout routines with video instructions.",
-                            DurationInWeeks = 4,
-                            ImageUrl = "https://cdn.leonardo.ai/users/71abb3b9-56dd-47ca-af2e-bf983837b78e/generations/b9205c59-f0ed-438f-ab45-3f29f957282d/Leonardo_Phoenix_i_want_you_to_generate_me_a_bodybuilder_reali_2.jpg",
-                            Name = "Fitness Program",
-                            Price = 39.99m,
-                            UserId = new Guid("84899585-883b-4378-a5fd-c1ac78dd7867")
-                        },
-                        new
-                        {
-                            Id = new Guid("c9c45f13-54c4-4f9d-8d36-0e7dc506bf45"),
-                            CategoryId = 2,
-                            CoachId = new Guid("d857d2eb-3aa9-42b8-8e29-0d939d36d12c"),
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Program designed to build muscle and increase strength. Ideal for all levels, it focuses on progressive resistance training to help you achieve powerful, lasting results.",
-                            DurationInWeeks = 4,
-                            ImageUrl = "https://cdn.leonardo.ai/users/71abb3b9-56dd-47ca-af2e-bf983837b78e/generations/d3c619ec-0f28-4e96-96ba-7b5f926c4d02/Leonardo_Phoenix_i_want_you_to_generate_me_a_bodybuilder_reali_3.jpg?w=512",
-                            Name = "Fitness Program",
-                            Price = 49.99m,
-                            UserId = new Guid("c85ca7cf-4f7d-4239-528c-08dcbeac59ab")
-                        });
                 });
 
             modelBuilder.Entity("OnlineCoachingApp.Data.Models.User", b =>
@@ -426,17 +358,6 @@ namespace OnlineCoachingApp.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OnlineCoachingApp.Data.Models.Coach", b =>
-                {
-                    b.HasOne("OnlineCoachingApp.Data.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("OnlineCoachingApp.Data.Models.TrainingProgram", b =>
                 {
                     b.HasOne("OnlineCoachingApp.Data.Models.Category", "Category")
@@ -445,31 +366,16 @@ namespace OnlineCoachingApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("OnlineCoachingApp.Data.Models.Coach", "Coach")
-                        .WithMany("TrainingPrograms")
-                        .HasForeignKey("CoachId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("OnlineCoachingApp.Data.Models.User", "User")
                         .WithMany("TrainingPrograms")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Category");
-
-                    b.Navigation("Coach");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("OnlineCoachingApp.Data.Models.Category", b =>
-                {
-                    b.Navigation("TrainingPrograms");
-                });
-
-            modelBuilder.Entity("OnlineCoachingApp.Data.Models.Coach", b =>
                 {
                     b.Navigation("TrainingPrograms");
                 });

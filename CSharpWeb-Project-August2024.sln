@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{5E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineCoachingApp.Services.Data", "OnlineCoachingApp.Services.Data\OnlineCoachingApp.Services.Data.csproj", "{D9A11AC5-A850-4A4A-A237-C683D71902D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineCoachingApp.Web.Infrastructure", "OnlineCoachingApp.Web.Infrastructure\OnlineCoachingApp.Web.Infrastructure.csproj", "{2DEAF0BC-56D7-40D7-89DC-2BB2C91403F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineCoachingApp.Web.Infrastructure", "OnlineCoachingApp.Web.Infrastructure\OnlineCoachingApp.Web.Infrastructure.csproj", "{2DEAF0BC-56D7-40D7-89DC-2BB2C91403F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

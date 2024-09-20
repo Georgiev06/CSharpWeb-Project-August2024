@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -8,6 +9,16 @@ namespace OnlineCoachingApp.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "CreatedOn",
+                table: "TrainingPrograms",
+                type: "datetime2",
+                nullable: false,
+                defaultValue: new DateTime(2024, 9, 15, 10, 16, 37, 204, DateTimeKind.Utc).AddTicks(3067),
+                oldClrType: typeof(DateTime),
+                oldType: "datetime2",
+                oldDefaultValue: new DateTime(2024, 9, 15, 9, 54, 27, 737, DateTimeKind.Utc).AddTicks(3969));
+
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Name" },
@@ -40,6 +51,16 @@ namespace OnlineCoachingApp.Data.Migrations
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 3);
+
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "CreatedOn",
+                table: "TrainingPrograms",
+                type: "datetime2",
+                nullable: false,
+                defaultValue: new DateTime(2024, 9, 15, 9, 54, 27, 737, DateTimeKind.Utc).AddTicks(3969),
+                oldClrType: typeof(DateTime),
+                oldType: "datetime2",
+                oldDefaultValue: new DateTime(2024, 9, 15, 10, 16, 37, 204, DateTimeKind.Utc).AddTicks(3067));
         }
     }
 }

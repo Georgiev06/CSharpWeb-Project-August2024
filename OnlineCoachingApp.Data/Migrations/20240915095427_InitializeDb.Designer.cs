@@ -12,8 +12,8 @@ using OnlineCoachingApp.Web.Data;
 namespace OnlineCoachingApp.Data.Migrations
 {
     [DbContext(typeof(OnlineCoachingAppDbContext))]
-    [Migration("20240819135417_SeedTrainingPrograms")]
-    partial class SeedTrainingPrograms
+    [Migration("20240915095427_InitializeDb")]
+    partial class InitializeDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -175,58 +175,6 @@ namespace OnlineCoachingApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Outdoor Fitness"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Fitness Program"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Home Workouts"
-                        });
-                });
-
-            modelBuilder.Entity("OnlineCoachingApp.Data.Models.Coach", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Bio")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Coaches");
                 });
 
             modelBuilder.Entity("OnlineCoachingApp.Data.Models.TrainingProgram", b =>
@@ -238,8 +186,10 @@ namespace OnlineCoachingApp.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("CoachId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 9, 15, 9, 54, 27, 737, DateTimeKind.Utc).AddTicks(3969));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -262,44 +212,16 @@ namespace OnlineCoachingApp.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("CoachId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("TrainingPrograms");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("ca3a7f62-1caf-4193-907e-568ef0b7c3be"),
-                            CategoryId = 2,
-                            CoachId = new Guid("d857d2eb-3aa9-42b8-8e29-0d939d36d12c"),
-                            Description = "Program designed to build muscle and increase strength. Ideal for all levels, it focuses on progressive resistance training to help you achieve powerful, lasting results.",
-                            DurationInWeeks = 4,
-                            ImageUrl = "",
-                            Name = "Fitness Program",
-                            Price = 49.99m,
-                            UserId = new Guid("c85ca7cf-4f7d-4239-528c-08dcbeac59ab")
-                        },
-                        new
-                        {
-                            Id = new Guid("aeef4f4c-0940-415d-a32b-9ded98974de3"),
-                            CategoryId = 1,
-                            CoachId = new Guid("d857d2eb-3aa9-42b8-8e29-0d939d36d12c"),
-                            Description = "Program focused on street workouts and bodyweight training. Designed to build strength, agility, and endurance using minimal equipment, it's perfect for anyone looking to get fit outdoors.",
-                            DurationInWeeks = 2,
-                            ImageUrl = "",
-                            Name = "Street Fitness Program",
-                            Price = 29.99m,
-                            UserId = new Guid("84899585-883b-4378-a5fd-c1ac78dd7867")
-                        });
                 });
 
             modelBuilder.Entity("OnlineCoachingApp.Data.Models.User", b =>
@@ -419,17 +341,6 @@ namespace OnlineCoachingApp.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OnlineCoachingApp.Data.Models.Coach", b =>
-                {
-                    b.HasOne("OnlineCoachingApp.Data.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("OnlineCoachingApp.Data.Models.TrainingProgram", b =>
                 {
                     b.HasOne("OnlineCoachingApp.Data.Models.Category", "Category")
@@ -438,31 +349,16 @@ namespace OnlineCoachingApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("OnlineCoachingApp.Data.Models.Coach", "Coach")
-                        .WithMany("TrainingPrograms")
-                        .HasForeignKey("CoachId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("OnlineCoachingApp.Data.Models.User", "User")
                         .WithMany("TrainingPrograms")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Category");
-
-                    b.Navigation("Coach");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("OnlineCoachingApp.Data.Models.Category", b =>
-                {
-                    b.Navigation("TrainingPrograms");
-                });
-
-            modelBuilder.Entity("OnlineCoachingApp.Data.Models.Coach", b =>
                 {
                     b.Navigation("TrainingPrograms");
                 });

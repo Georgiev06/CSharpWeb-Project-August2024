@@ -24,12 +24,6 @@ namespace OnlineCoachingApp.Data.Configuration
                 .HasForeignKey(tp => tp.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-                .HasOne(tp => tp.Coach)
-                .WithMany(c => c.TrainingPrograms)
-                .HasForeignKey(tp => tp.CoachId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             builder.HasData(this.SeedTrainingPrograms());
         }
 
@@ -47,8 +41,6 @@ namespace OnlineCoachingApp.Data.Configuration
                 DurationInWeeks = 4,
                 Price = 39.99m,
                 CategoryId = 2,
-                CoachId = Guid.Parse("D857D2EB-3AA9-42B8-8E29-0D939D36D12C"),
-                UserId = Guid.Parse("84899585-883B-4378-A5FD-C1AC78DD7867")
             };
 
             trainingPrograms.Add(trainingProgram);
@@ -61,8 +53,19 @@ namespace OnlineCoachingApp.Data.Configuration
                 DurationInWeeks = 4,
                 Price = 49.99m,
                 CategoryId = 2,
-                CoachId = Guid.Parse("D857D2EB-3AA9-42B8-8E29-0D939D36D12C"),
-                UserId = Guid.Parse("C85CA7CF-4F7D-4239-528C-08DCBEAC59AB")
+            };
+
+            trainingPrograms.Add(trainingProgram);
+
+
+            trainingProgram = new TrainingProgram()
+            {
+                Name = "Fitness Program",
+                Description = "Training program designed to build muscle and improve overall fitness. Includes daily workout routines with video instructions.",
+                ImageUrl = "https://cdn.leonardo.ai/users/71abb3b9-56dd-47ca-af2e-bf983837b78e/generations/d3c619ec-0f28-4e96-96ba-7b5f926c4d02/Leonardo_Phoenix_i_want_you_to_generate_me_a_bodybuilder_reali_3.jpg?w=512",
+                DurationInWeeks = 4,
+                Price = 49.99m,
+                CategoryId = 2,
             };
 
             trainingPrograms.Add(trainingProgram);

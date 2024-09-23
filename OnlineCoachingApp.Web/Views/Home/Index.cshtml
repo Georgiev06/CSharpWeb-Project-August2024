@@ -20,11 +20,14 @@
             @foreach (IndexViewModel program in Model)
             {
                 <li class="card">
-                    <div class="img"><img src="@program.ImageUrl" alt="img" draggable="false"></div>
+                    <div class="img">
+                        <img src="@program.ImageUrl" alt="img" draggable="false">
+                        <div class="view-details">VIEW DETAILS</div>
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">@program.Name</h5>
                         <p class="card-content">@($"{@program.Price:0.00}€")</p>
-                        <button class="btn btn-outline-dark add-to-cart">ADD TO CART</button>
+                        <button class="add-to-cart">BUY NOW</button>
                     </div>
                 </li>
             }

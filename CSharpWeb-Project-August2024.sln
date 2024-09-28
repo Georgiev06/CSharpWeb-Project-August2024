@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineCoachingApp.Services.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineCoachingApp.Web.Infrastructure", "OnlineCoachingApp.Web.Infrastructure\OnlineCoachingApp.Web.Infrastructure.csproj", "{2DEAF0BC-56D7-40D7-89DC-2BB2C91403F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineCoachingApp.Services.Data.Models", "OnlineCoachingApp.Services.Data.Models\OnlineCoachingApp.Services.Data.Models.csproj", "{50248FC9-F40B-4428-A9BD-69A7F76C5EDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{2DEAF0BC-56D7-40D7-89DC-2BB2C91403F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DEAF0BC-56D7-40D7-89DC-2BB2C91403F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DEAF0BC-56D7-40D7-89DC-2BB2C91403F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50248FC9-F40B-4428-A9BD-69A7F76C5EDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50248FC9-F40B-4428-A9BD-69A7F76C5EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50248FC9-F40B-4428-A9BD-69A7F76C5EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50248FC9-F40B-4428-A9BD-69A7F76C5EDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{D00D4027-17F9-4C42-8558-C208252E2814} = {16E41481-E571-4519-9F0B-1FC922AEF294}
 		{D9A11AC5-A850-4A4A-A237-C683D71902D7} = {5E08BBAF-61DB-40A6-97B2-1D9D6A63110C}
 		{2DEAF0BC-56D7-40D7-89DC-2BB2C91403F2} = {16E41481-E571-4519-9F0B-1FC922AEF294}
+		{50248FC9-F40B-4428-A9BD-69A7F76C5EDB} = {5E08BBAF-61DB-40A6-97B2-1D9D6A63110C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {41B0B647-2E35-481C-8D9D-5C0ED4965449}

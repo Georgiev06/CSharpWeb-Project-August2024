@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "Shop";
+}
+
+@model OnlineCoachingApp.Web.ViewModels.TrainingProgram.TrainingProgramQueryModel
+
+<div class="container mt-4">
+    <!-- Page Title -->
+    <h2 class="text-center">All Training Programs</h2>
+
+    <!-- Filter and Search Section -->
+    <form method="get" asp-action="All" class="mb-3">
+        <div class="filter-search-container">
+            <!-- Category Filter -->
+            <div class="filter">
+                <label for="category" class="filter-label">Category</label>
+                <select id="category" name="category" class="filter-select">
+                    <option value="">All</option>
+                    @foreach (var category in Model.Categories.Distinct())
+                    {
+                        if (Model.Category == category)
+                        {
+                            <option value="@category" selected>@category</option>
+                        }
+                        else
+                        {
+                            <option value="@category">@category</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <!-- Search Box -->
+            <div class="search-box">
+                <input type="text" id="search" name="search" placeholder="Search here..." class="search-input">
+                <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+            </div>
+
+            <!-- Sorting Dropdown -->
+            <div class="filter">
+                <label for="sort" class="filter-label">Sort by</label>
+                <select id="sort" name="sort" class="filter-select">
+                    <option value="Newest">Newest</option>
+                    <option value="Oldest">Oldest</option>
+                    <option value="PriceAscending">Price: Low to High</option>
+                    <option value="PriceDescending">Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="mt-3 text-center">
+            <button type="submit" class="btn btn-primary">Filter & Sort</button>
+        </div>
+    </form>
+
+    <!-- Display Training Programs -->
+    <div class="row">
+        @if (Model.TrainingPrograms.Any())
+        {
+            @foreach (var program in Model.TrainingPrograms)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="@program.ImageUrl" class="card-img-top" alt="@program.Name" style="height: 250px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">@program.Name</h5>
+                            <p class="card-text">@($"{program.Price:0.00} €")</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="@Url.Action("Details", "TrainingProgram", new { id = program.Id })" class="btn btn-outline-primary btn-block">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <p class="text-center">No training programs available at the moment.</p>
+            </div>
+        }
+    </div>
+</div>

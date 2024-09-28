@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using OnlineCoachingApp.Services.Data.Interfaces;
+using OnlineCoachingApp.Services.Data.Models.TrainingProgram;
 using OnlineCoachingApp.Web.Infrastructure.Extensions;
 using OnlineCoachingApp.Web.ViewModels.TrainingProgram;
 
@@ -20,10 +21,16 @@ namespace OnlineCoachingApp.Web.Controllers
             this._trainingProgramService = trainingProgramService;
         }
 
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]TrainingProgramQueryModel queryModel)
         {
-            return this.View();
+            TrainingProgramsFilterServiceModel serviceModel = await this._trainingProgramService.All(queryModel);
+
+            queryModel.TrainingPrograms = serviceModel.TrainingPrograms;
+            queryModel.Categories = await this._categoryService.GetAllCategoryNames();
+
+            return this.View(queryModel);
         }
 
         [HttpGet]

@@ -34,6 +34,16 @@ namespace OnlineCoachingApp.Services.Data
             return categories;
         }
 
+        public async Task<IEnumerable<string>> GetAllCategoryNames()
+        {
+            IEnumerable<string> allCategoryNames = await this._data.Categories
+                .Select(c => c.Name)
+                .Distinct()
+                .ToArrayAsync();
+
+            return allCategoryNames;
+        }
+
         public async Task<bool> GetCategoryById(int id)
         {
             bool result = await this._data.Categories.AnyAsync(c => c.Id == id);

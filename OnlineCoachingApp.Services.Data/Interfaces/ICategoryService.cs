@@ -11,6 +11,6 @@ namespace OnlineCoachingApp.Services.Data.Interfaces
     {
         Task<IEnumerable<CategoryViewModel>> GetAllCategories();
         Task<bool> GetCategoryById(int id);
-
+        Task<IEnumerable<string>> GetAllCategoryNames();
     }
 }

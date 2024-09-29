@@ -34,7 +34,8 @@
 
             <!-- Search Box -->
             <div class="search-box">
-                <input type="text" id="search" name="search" placeholder="Search here..." class="search-input">
+                @*<label asp-for="SearchTerm">Search</label>*@
+                <input type="text" asp-for="SearchTerm" class="search-input" placeholder="Search here...">
                 <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
             </div>
 
@@ -57,21 +58,20 @@
     </form>
 
     <!-- Display Training Programs -->
-    <div class="row">
+    <div class="card-container">
         @if (Model.TrainingPrograms.Any())
         {
             @foreach (var program in Model.TrainingPrograms)
             {
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <img src="@program.ImageUrl" class="card-img-top" alt="@program.Name" style="height: 250px; object-fit: cover;">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">@program.Name</h5>
-                            <p class="card-text">@($"{program.Price:0.00} €")</p>
-                        </div>
-                        <div class="card-footer">
-                            <a href="@Url.Action("Details", "TrainingProgram", new { id = program.Id })" class="btn btn-outline-primary btn-block">View Details</a>
-                        </div>
+                <div class="card">
+                    <div class="img">
+                        <img src="@program.ImageUrl" alt="img" draggable="false">
+                        <div class="view-details">VIEW DETAILS</div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@program.Name</h5>
+                        <p class="card-content">@($"{@program.Price:0.00}€")</p>
+                        <button class="add-to-cart">BUY NOW</button>
                     </div>
                 </div>
             }

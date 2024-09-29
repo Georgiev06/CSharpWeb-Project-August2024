@@ -64,8 +64,8 @@ namespace OnlineCoachingApp.Services.Data
 
             trainingProgramsQuery = queryModel.TrainingProgramSorting switch
             {
-                TrainingProgramSorting.Newest => trainingProgramsQuery.OrderBy(tp => tp.CreatedOn),
-                TrainingProgramSorting.Oldest => trainingProgramsQuery.OrderByDescending(tp => tp.CreatedOn),
+                TrainingProgramSorting.Newest => trainingProgramsQuery.OrderByDescending(tp => tp.CreatedOn),
+                TrainingProgramSorting.Oldest => trainingProgramsQuery.OrderBy(tp => tp.CreatedOn),
                 TrainingProgramSorting.PriceAscending => trainingProgramsQuery.OrderBy(tp => tp.Price),
                 TrainingProgramSorting.PriceDescending => trainingProgramsQuery.OrderByDescending(tp => tp.Price),
                 _ => trainingProgramsQuery.OrderByDescending(tp => tp.CreatedOn)

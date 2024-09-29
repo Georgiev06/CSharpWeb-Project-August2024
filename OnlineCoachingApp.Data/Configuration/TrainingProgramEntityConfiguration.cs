@@ -16,7 +16,7 @@ namespace OnlineCoachingApp.Data.Configuration
         {
             builder
                 .Property(tp => tp.CreatedOn)
-                .HasDefaultValue(DateTime.UtcNow);
+                .HasDefaultValueSql("GETDATE()");
 
             builder
                 .HasOne(tp => tp.Category)

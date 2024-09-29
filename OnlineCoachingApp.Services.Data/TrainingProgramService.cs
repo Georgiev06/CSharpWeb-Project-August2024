@@ -72,6 +72,7 @@ namespace OnlineCoachingApp.Services.Data
             };
 
             IEnumerable<TrainingProgramAllViewModel> allTrainingPrograms = await trainingProgramsQuery
+                .Where(tp => tp.IsActive)
                 .Select(tp => new TrainingProgramAllViewModel 
                 { 
                     Id = tp.Id.ToString(),
@@ -89,6 +90,7 @@ namespace OnlineCoachingApp.Services.Data
         public async Task<IEnumerable<IndexViewModel>> LatestTrainingPrograms()
         {
             IEnumerable<IndexViewModel> latestPrograms = await this._data.TrainingPrograms
+                .Where(tp => tp.IsActive)
                 .OrderByDescending(tp => tp.CreatedOn)
                 .Take(5)
                 .Select(tp => new IndexViewModel

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata.Ecma335;
 using static OnlineCoachingApp.Common.EntityValidationsConstants.TrainingProgram;
 
 namespace OnlineCoachingApp.Data.Models
@@ -32,6 +33,8 @@ namespace OnlineCoachingApp.Data.Models
         public decimal Price { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public bool IsActive { get; set; }
 
         public int CategoryId { get; set; }
 

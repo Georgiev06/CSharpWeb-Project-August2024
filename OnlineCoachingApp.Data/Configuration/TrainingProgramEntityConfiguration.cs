@@ -18,6 +18,9 @@ namespace OnlineCoachingApp.Data.Configuration
                 .Property(tp => tp.CreatedOn)
                 .HasDefaultValueSql("GETDATE()");
 
+            builder.Property(tp => tp.IsActive)
+                   .HasDefaultValue(true);
+
             builder
                 .HasOne(tp => tp.Category)
                 .WithMany(c => c.TrainingPrograms)

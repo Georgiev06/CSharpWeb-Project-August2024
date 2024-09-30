@@ -86,10 +86,11 @@
     width: 100%;
     max-width: 1100px;
     height: 100%;
-    min-height: 50vh;
+    min-height: 80vh;
     align-items: center;
     justify-content: center;
     gap: 16px;
+    grid-row-gap: 30px;
 }
 
 
